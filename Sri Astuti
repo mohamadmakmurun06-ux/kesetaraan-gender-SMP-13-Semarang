@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesetaraan Gender dalam Kehidupan Masyarakat - IPS Kelas VIII</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            indigo: '#4F46E5',
+                            purple: '#7C3AED',
+                            teal: '#0D9488',
+                            coral: '#F43F5E',
+                            amber: '#F59E0B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Smooth Transitions & Card Flip Effects */
+        body {
+            background-color: #F8FAFC;
+            color: #1E293B;
+            overflow-x: hidden;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar for horizontal nav on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Print Styles for LKPD Export to PDF */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #print-area {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .print-card {
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+                margin-bottom: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-100 selection:text-indigo-900">
+
+    <!-- HEADER & NAVIGATION (Hidden on Print) -->
+    <header class="no-print sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & School Identity -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-teal-500 flex items-center justify-center text-white shadow-md">
+                        <!-- Inline SVG Icon: Balance / Equality -->
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-bold text-slate-900 text-sm sm:text-base leading-tight">IPS Kelas VIII • Fase D</h1>
+                        <p class="text-xs text-slate-500 font-medium">SMP Negeri 13 Semarang</p>
+                    </div>
+                </div>
+
+                <!-- Live Score Pill -->
+                <div class="flex items-center gap-2 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full">
+                    <span class="text-xs font-semibold text-indigo-700 hidden sm:inline">Skor LKPD:</span>
+                    <span id="header-score" class="font-display font-extrabold text-sm text-indigo-600">0</span>
+                    <span class="text-xs text-indigo-400 font-medium">/ 100</span>
+                </div>
+            </div>
+
+            <!-- Stepper Navigation Bar -->
+            <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar py-2 border-t border-slate-100" aria-label="Alur Pembelajaran">
+                <button onclick="switchTab('beranda')" id="nav-beranda" class="nav-btn active flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-indigo-600 text-white shadow-sm">
+                    <span>1. Beranda & Tujuan</span>
+                </button>
+                <button onclick="switchTab('pemantik')" id="nav-pemantik" class="nav-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-slate-600 hover:bg-slate-100">
+                    <span>2. Pemantik (Ice Breaker)</span>
+                </button>
+                <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-slate-600 hover:bg-slate-100">
+                    <span>3. Materi Inti</span>
+                </button>
+                <button onclick="switchTab('lkpd')" id="nav-lkpd" class="nav-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-slate-600 hover:bg-slate-100">
+                    <span>4. LKPD Interaktif</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+        <!-- ========================================================= -->
+        <!-- TAB 1: BERANDA & TUJUAN PEMBELAJARAN                      -->
+        <!-- ========================================================= -->
+        <section id="tab-beranda" class="tab-content active space-y-6">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-700 via-purple-700 to-teal-600 text-white p-6 sm:p-10 shadow-xl">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-xs font-semibold tracking-wide uppercase">
+                        <span>Kurikulum Merdeka • Pembelajaran Mendalam</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-4xl font-extrabold leading-tight">
+                        Kesetaraan Gender dalam Kehidupan Masyarakat
+                    </h2>
+                    <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
+                        Pernahkah kamu mendengar kalimat <em>“anak laki-laki tidak boleh menangis”</em> atau <em>“urusan dapur hanya tugas perempuan”</em>? Yuk, kita telusuri bersama: <strong>Adilkah pembagian peran di sekitar kita?</strong>
+                    </p>
+                    
+                    <!-- Metadata Badges -->
+                    <div class="pt-2 flex flex-wrap gap-2 sm:gap-3 text-xs font-medium">
+                        <div class="bg-black/20 backdrop-blur-sm px-3.5 py-2 rounded-xl flex items-center gap-2">
+                            <span>🏫</span>
+                            <span>SMP Negeri 13 Semarang</span>
+                        </div>
+                        <div class="bg-black/20 backdrop-blur-sm px-3.5 py-2 rounded-xl flex items-center gap-2">
+                            <span>👩‍🏫</span>
+                            <span>Guru: Sri Astuti, S.Pd</span>
+                        </div>
+                        <div class="bg-black/20 backdrop-blur-sm px-3.5 py-2 rounded-xl flex items-center gap-2">
+                            <span>📚</span>
+                            <span>Kelas VIII / Semester Ganjil</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3">
+                        <button onclick="switchTab('pemantik')" class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-display font-bold px-6 py-3 rounded-2xl shadow-lg transition-transform active:scale-95">
+                            <span>Mulai Petualangan Belajar</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Decorative Background Shapes -->
+                <div class="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-teal-400/20 blur-2xl pointer-events-none"></div>
+                <div class="absolute right-10 -top-12 w-56 h-56 rounded-full bg-purple-400/20 blur-2xl pointer-events-none"></div>
+            </div>
+
+            <!-- Pilar Pembelajaran Mendalam -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl shrink-0">🧠</div>
+                    <div>
+                        <h3 class="font-display font-bold text-slate-800 text-base">Berkesadaran</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Menyadari perbedaan antara kodrat biologis dan peran sosial yang terbentuk di masyarakat.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-xl shrink-0">💡</div>
+                    <div>
+                        <h3 class="font-display font-bold text-slate-800 text-base">Bermakna</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Menganalisis kasus nyata di lingkungan keluarga dan sekolah untuk menemukan solusi yang adil.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl shrink-0">🎉</div>
+                    <div>
+                        <h3 class="font-display font-bold text-slate-800 text-base">Menggembirakan</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1">Belajar aktif lewat simulasi pemantik, eksplorasi visual, dan tantangan LKPD digital.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 Tujuan Pembelajaran Interaktif -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Target Kompetensi</span>
+                        <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">Tujuan Pembelajaran Hari Ini</h3>
+                    </div>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg font-medium">Klik kartu untuk menandai pemahamanmu</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div onclick="toggleGoal(this)" class="goal-card cursor-pointer group p-5 rounded-2xl border-2 border-slate-200 hover:border-indigo-400 bg-slate-50/50 transition-all">
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white font-display font-bold text-sm flex items-center justify-center shrink-0">1</span>
+                            <span class="goal-badge text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">Belum Dicapai</span>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-800 mt-3 text-base">Membedakan Seks & Gender</h4>
+                        <p class="text-sm text-slate-600 mt-1">Mampu membedakan konsep seks (biologis) dan gender (sosial) dengan tepat melalui klasifikasi pernyataan.</p>
+                    </div>
+
+                    <div onclick="toggleGoal(this)" class="goal-card cursor-pointer group p-5 rounded-2xl border-2 border-slate-200 hover:border-teal-400 bg-slate-50/50 transition-all">
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-600 text-white font-display font-bold text-sm flex items-center justify-center shrink-0">2</span>
+                            <span class="goal-badge text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">Belum Dicapai</span>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-800 mt-3 text-base">Indikator Kesetaraan (APKM)</h4>
+                        <p class="text-sm text-slate-600 mt-1">Menjelaskan pentingnya kesetaraan gender di keluarga, sekolah, dan masyarakat dengan indikator Akses, Partisipasi, Kontrol, dan Manfaat.</p>
+                    </div>
+
+                    <div onclick="toggleGoal(this)" class="goal-card cursor-pointer group p-5 rounded-2xl border-2 border-slate-200 hover:border-purple-400 bg-slate-50/50 transition-all">
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-purple-600 text-white font-display font-bold text-sm flex items-center justify-center shrink-0">3</span>
+                            <span class="goal-badge text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">Belum Dicapai</span>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-800 mt-3 text-base">Analisis Ketidaksetaraan</h4>
+                        <p class="text-sm text-slate-600 mt-1">Mengidentifikasi bentuk ketidaksetaraan gender (stereotip, subordinasi, marginalisasi, beban ganda) pada studi kasus beserta dampaknya.</p>
+                    </div>
+
+                    <div onclick="toggleGoal(this)" class="goal-card cursor-pointer group p-5 rounded-2xl border-2 border-slate-200 hover:border-rose-400 bg-slate-50/50 transition-all">
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-rose-600 text-white font-display font-bold text-sm flex items-center justify-center shrink-0">4</span>
+                            <span class="goal-badge text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">Belum Dicapai</span>
+                        </div>
+                        <h4 class="font-display font-bold text-slate-800 mt-3 text-base">Merumuskan Solusi Adil</h4>
+                        <p class="text-sm text-slate-600 mt-1">Merumuskan solusi nyata serta contoh pembagian peran laki-laki dan perempuan yang adil di lingkungan sekitar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2: PEMANTIK (ICE BREAKER - BERDIRI JIKA SETUJU)       -->
+        <!-- ========================================================= -->
+        <section id="tab-pemantik" class="tab-content space-y-6">
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2">Tahap Pendahuluan • Asesmen Awal</span>
+                        <h2 class="font-display text-2xl font-bold text-slate-900">Simulasi “Berdiri Jika Setuju” 🙋‍♂️🙋‍♀️</h2>
+                        <p class="text-sm text-slate-600 mt-1">Baca setiap pernyataan di bawah ini. Tentukan sikapmu (<strong>Setuju</strong> atau <strong>Tidak Setuju</strong>) dan tuliskan alasan singkatmu dengan jujur dan santun!</p>
+                    </div>
+                    <div class="bg-indigo-50 px-4 py-3 rounded-2xl border border-indigo-100 text-xs text-indigo-800 max-w-xs">
+                        <strong>Kesepakatan Kelas:</strong> Tidak ada ejekan. Semua pendapat dihargai dan didengarkan dengan saling menghormati.
+                    </div>
+                </div>
+
+                <!-- Container Kartu Pemantik -->
+                <div id="icebreaker-list" class="mt-6 space-y-6">
+                    <!-- Rendered dynamically via JS -->
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
+                    <button onclick="switchTab('beranda')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+                        ← Kembali
+                    </button>
+                    <button onclick="switchTab('materi')" class="px-6 py-3 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition">
+                        Lanjut ke Materi Inti →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 3: MATERI INTI (MEMAHAMI)                             -->
+        <!-- ========================================================= -->
+        <section id="tab-materi" class="tab-content space-y-8">
+            
+            <!-- Bagian A: Seks vs Gender -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold mb-2">Konsep Dasar 1</span>
+                    <h2 class="font-display text-2xl font-bold text-slate-900">Apa Bedanya Seks dan Gender?</h2>
+                    <p class="text-sm text-slate-600 mt-1">Sering kali kita mencampuradukkan dua istilah ini. Klik tab atau kartu perbandingan di bawah untuk memahami perbedaannya!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Kartu SEKS -->
+                    <div class="rounded-2xl border-2 border-indigo-200 bg-gradient-to-b from-indigo-50/70 to-white p-6 relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-display font-bold text-sm">SEKS (Jenis Kelamin)</span>
+                            <span class="text-2xl">🧬</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Bawaan Lahir (Biologis/Kodrat):</strong> Ditentukan secara alami sejak lahir oleh Tuhan Yang Maha Esa.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Tidak Dapat Dipertukarkan:</strong> Berlaku universal di seluruh dunia dan sepanjang masa.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-indigo-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Contoh:</strong> Perempuan memiliki rahim, mengalami menstruasi, hamil, melahirkan, dan menyusui. Laki-laki memproduksi sperma dan memiliki jakun.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Kartu GENDER -->
+                    <div class="rounded-2xl border-2 border-teal-200 bg-gradient-to-b from-teal-50/70 to-white p-6 relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-lg bg-teal-600 text-white font-display font-bold text-sm">GENDER (Peran Sosial)</span>
+                            <span class="text-2xl">🤝</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-teal-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Konstruksi Sosial & Budaya:</strong> Sifat, peran, tanggung jawab, dan perilaku yang dibentuk oleh masyarakat.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-teal-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Dapat Berubah & Dipertukarkan:</strong> Berbeda antar budaya dan bisa berubah seiring perkembangan zaman.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-teal-600 font-bold mt-0.5">✓</span>
+                                <span><strong>Contoh:</strong> Memasak, mengasuh anak, mencari nafkah, menjadi pemimpin OSIS, atau menjadi insinyur dan koki profesional.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian B: 4 Indikator Kesetaraan Gender (APKM) -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold mb-2">Konsep Dasar 2</span>
+                    <h2 class="font-display text-2xl font-bold text-slate-900">4 Indikator Kesetaraan Gender (APKM)</h2>
+                    <p class="text-sm text-slate-600 mt-1">Bagaimana cara mengukur apakah keluarga, sekolah, dan masyarakat sudah menerapkan kesetaraan gender? Klik masing-masing huruf <strong>A-P-K-M</strong> di bawah ini!</p>
+                </div>
+
+                <!-- Interactive APKM Selector -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                    <button onclick="selectAPKM('A')" id="btn-apkm-A" class="apkm-btn active p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-600 text-white text-left transition-all shadow-md">
+                        <div class="font-display text-2xl font-extrabold">A</div>
+                        <div class="font-bold text-sm mt-1">Akses</div>
+                    </button>
+                    <button onclick="selectAPKM('P')" id="btn-apkm-P" class="apkm-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-teal-400 text-slate-800 text-left transition-all">
+                        <div class="font-display text-2xl font-extrabold text-teal-600">P</div>
+                        <div class="font-bold text-sm mt-1">Partisipasi</div>
+                    </button>
+                    <button onclick="selectAPKM('K')" id="btn-apkm-K" class="apkm-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-purple-400 text-slate-800 text-left transition-all">
+                        <div class="font-display text-2xl font-extrabold text-purple-600">K</div>
+                        <div class="font-bold text-sm mt-1">Kontrol</div>
+                    </button>
+                    <button onclick="selectAPKM('M')" id="btn-apkm-M" class="apkm-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-amber-400 text-slate-800 text-left transition-all">
+                        <div class="font-display text-2xl font-extrabold text-amber-600">M</div>
+                        <div class="font-bold text-sm mt-1">Manfaat</div>
+                    </button>
+                </div>
+
+                <!-- APKM Detail Box -->
+                <div id="apkm-detail" class="p-6 rounded-2xl bg-slate-50 border border-slate-200 transition-all">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <!-- Bagian C: 5 Bentuk Ketidaksetaraan Gender -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <div class="max-w-3xl mb-6">
+                    <span class="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold mb-2">Konsep Dasar 3</span>
+                    <h2 class="font-display text-2xl font-bold text-slate-900">5 Bentuk Ketidaksetaraan Gender</h2>
+                    <p class="text-sm text-slate-600 mt-1">Ketika peran gender dipaksakan secara tidak adil, muncul 5 bentuk ketidaksetaraan berikut di masyarakat:</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-3">🏷️</div>
+                        <h3 class="font-display font-bold text-slate-900 text-base">1. Stereotip (Pelabelan)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5">Pemberian label atau cap baku pada jenis kelamin tertentu yang sering merugikan.</p>
+                        <div class="mt-3 p-2.5 rounded-xl bg-amber-50/80 text-xs text-amber-900">
+                            <strong>Contoh:</strong> Anggapan bahwa perempuan itu emosional/cengeng, sedangkan laki-laki harus selalu keras dan tidak boleh menangis.
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl mb-3">🥈</div>
+                        <h3 class="font-display font-bold text-slate-900 text-base">2. Subordinasi (Penomorduaan)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5">Anggapan bahwa salah satu jenis kelamin lebih rendah atau kurang penting dibanding yang lain.</p>
+                        <div class="mt-3 p-2.5 rounded-xl bg-purple-50/80 text-xs text-purple-900">
+                            <strong>Contoh:</strong> Perempuan dianggap tidak pantas menjadi ketua OSIS atau pemimpin, dan hanya cocok menjadi sekretaris/bendahara.
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl mb-3">🚧</div>
+                        <h3 class="font-display font-bold text-slate-900 text-base">3. Marginalisasi (Peminggiran)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5">Proses peminggiran akses terhadap sumber daya, pendidikan, atau peluang ekonomi.</p>
+                        <div class="mt-3 p-2.5 rounded-xl bg-indigo-50/80 text-xs text-indigo-900">
+                            <strong>Contoh:</strong> Anak perempuan tidak disekolahkan ke jenjang tinggi karena alasan “ujung-ujungnya akan di dapur juga”.
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-xl mb-3">⚖️</div>
+                        <h3 class="font-display font-bold text-slate-900 text-base">4. Beban Kerja Ganda</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5">Beban pekerjaan yang jauh lebih banyak dipikul oleh salah satu jenis kelamin tanpa pembagian adil.</p>
+                        <div class="mt-3 p-2.5 rounded-xl bg-teal-50/80 text-xs text-teal-900">
+                            <strong>Contoh:</strong> Seorang ibu yang bekerja mencari nafkah di luar rumah, namun tetap dibebani seluruh pekerjaan rumah tangga sendirian.
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white hover:shadow-md transition sm:col-span-2 lg:col-span-2">
+                        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-xl mb-3">🛡️</div>
+                        <h3 class="font-display font-bold text-slate-900 text-base">5. Kekerasan (Violence)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5">Serangan atau perlakuan kasar baik secara fisik maupun psikis (verbal/ejekan) yang didasarkan pada bias gender.</p>
+                        <div class="mt-3 p-2.5 rounded-xl bg-rose-50/80 text-xs text-rose-900">
+                            <strong>Contoh:</strong> Perundungan (bullying) atau ejekan di sekolah terhadap anak laki-laki yang hobi memasak atau anak perempuan yang hobi bermain futsal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
+                    <button onclick="switchTab('pemantik')" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+                        ← Pemantik
+                    </button>
+                    <button onclick="switchTab('lkpd')" class="px-6 py-3 rounded-xl text-sm font-bold bg-teal-600 hover:bg-teal-700 text-white shadow-md transition">
+                        Mulai Kerjakan LKPD Interaktif →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- TAB 4: LKPD INTERAKTIF (AKTIVITAS 1, 2, 3 & KESIMPULAN)   -->
+        <!-- ========================================================= -->
+        <section id="tab-lkpd" class="tab-content space-y-6">
+            <div id="print-area" class="space-y-6">
+                
+                <!-- Header LKPD & Identitas Kelompok -->
+                <div class="print-card bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5 mb-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Lampiran 1 • Lembar Kerja Peserta Didik</span>
+                            <h2 class="font-display text-2xl font-bold text-slate-900">LKPD: Kesetaraan Gender</h2>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Mata Pelajaran IPS • Kelas VIII / Ganjil • SMP Negeri 13 Semarang</p>
+                        </div>
+                        <div class="no-print flex flex-wrap gap-2">
+                            <button onclick="window.print()" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Cetak / Simpan PDF</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Identitas Siswa / Kelompok -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Kelompok / Nama Siswa</label>
+                            <input type="text" id="input-kelompok" placeholder="Contoh: Kelompok 1 (Bhinneka)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Kelas & Nomor Absen</label>
+                            <input type="text" id="input-kelas" placeholder="Contoh: VIII-A / Anggota: Raka, Sinta, Budi..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AKTIVITAS 1: KLASIFIKASI SEKS VS GENDER (SKOR MAKS 30) -->
+                <div class="print-card bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold">Aktivitas 1 • Skor Maksimal: 30</span>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mt-2">Membedakan Seks dan Gender</h3>
+                            <p class="text-xs sm:text-sm text-slate-600">Pilih kategori <strong>Seks (Biologis)</strong> jika merupakan kodrat bawaan lahir, atau <strong>Gender (Sosial)</strong> jika merupakan anggapan/peran sosial buatan masyarakat.</p>
+                        </div>
+                        <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl text-center shrink-0">
+                            <span class="block text-[11px] font-semibold text-indigo-600 uppercase">Skor Aktivitas 1</span>
+                            <span id="score-act1" class="font-display text-xl font-extrabold text-indigo-700">0</span><span class="text-xs text-indigo-500">/30</span>
+                        </div>
+                    </div>
+
+                    <div id="act1-container" class="space-y-3 mt-5">
+                        <!-- Rendered via JS -->
+                    </div>
+
+                    <div class="no-print mt-5 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100">
+                        <button onclick="checkActivity1()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow transition">
+                            Periksa Jawaban Aktivitas 1
+                        </button>
+                        <button onclick="resetActivity1()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 px-3 py-2">
+                            Reset Pilihan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AKTIVITAS 2: ANALISIS STUDI KASUS (SKOR MAKS 40) -->
+                <div class="print-card bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-lg bg-purple-100 text-purple-800 text-xs font-bold">Aktivitas 2 • Skor Maksimal: 40</span>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mt-2">Analisis Studi Kasus</h3>
+                            <p class="text-xs sm:text-sm text-slate-600">Bacalah dua kasus di bawah ini dengan saksama, lalu diskusikan dan tuliskan jawabanmu pada kolom yang tersedia.</p>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-200 px-4 py-2 rounded-xl text-center shrink-0">
+                            <span class="block text-[11px] font-semibold text-purple-600 uppercase">Skor Aktivitas 2</span>
+                            <span id="score-act2" class="font-display text-xl font-extrabold text-purple-700">0</span><span class="text-xs text-purple-500">/40</span>
+                        </div>
+                    </div>
+
+                    <!-- Dua Kotak Studi Kasus -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="p-5 rounded-2xl bg-amber-50/70 border border-amber-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-lg">🏠</span>
+                                <h4 class="font-display font-bold text-amber-950 text-sm sm:text-base">Kasus 1 (Lingkungan Keluarga)</h4>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                Pak Budi memiliki dua anak, <strong>Raka (laki-laki)</strong> dan <strong>Sinta (perempuan)</strong>. Keduanya baru lulus SMP dengan nilai yang sama-sama memuaskan. Karena ekonomi keluarga terbatas, Pak Budi hanya menyekolahkan Raka ke SMA, sedangkan Sinta diminta tinggal di rumah membantu ibunya dengan alasan <em>“perempuan ujung-ujungnya akan di dapur juga”</em>.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-indigo-50/70 border border-indigo-200">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-lg">🏫</span>
+                                <h4 class="font-display font-bold text-indigo-950 text-sm sm:text-base">Kasus 2 (Lingkungan Sekolah)</h4>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                Dalam pemilihan ketua OSIS di SMP Nusantara, <strong>kandidat perempuan</strong> memiliki visi misi yang sangat baik dan berpengalaman berorganisasi. Namun sebagian besar siswa enggan memilihnya karena menganggap <em>laki-laki lebih tegas dan pantas menjadi pemimpin utama</em>, sedangkan perempuan lebih cocok menjadi sekretaris atau bendahara.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 4 Pertanyaan Diskusi Kasus -->
+                    <div class="space-y-5">
+                        <!-- Pertanyaan 1 -->
+                        <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50/40">
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                1. Pada Kasus 1, bentuk ketidaksetaraan gender apa yang dialami Sinta? Jelaskan kaitannya dengan istilah <em>marginalisasi</em> (peminggiran akses) atau <em>stereotip</em> (pelabelan).
+                            </label>
+                            <textarea id="q2-1" rows="3" oninput="calculateTotalScore()" placeholder="Tuliskan hasil analisismu di sini..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white"></textarea>
+                            <div class="no-print mt-2 flex items-center justify-between">
+                                <button onclick="toggleRubric('rubric-2-1')" class="text-xs font-semibold text-purple-600 hover:underline">
+                                    💡 Lihat Kunci & Panduan Analisis
+                                </button>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                                    <span>Penilaian Mandiri (0-10):</span>
+                                    <select id="self-2-1" onchange="calculateTotalScore()" class="border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-purple-700 bg-white">
+                                        <option value="0">0</option>
+                                        <option value="5">5 (Cukup)</option>
+                                        <option value="8">8 (Baik)</option>
+                                        <option value="10">10 (Tepat)</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div id="rubric-2-1" class="hidden mt-3 p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-950">
+                                <strong>Kunci Jawaban (Skor 10):</strong> Bentuk ketidaksetaraan yang dialami Sinta adalah <strong>Marginalisasi</strong> (peminggiran hak akses pendidikan karena keterbatasan ekonomi dialihkan hanya untuk anak laki-laki) dan <strong>Stereotip</strong> (pelabelan bahwa perempuan ujung-ujungnya hanya berada di ranah domestik/dapur).
+                            </div>
+                        </div>
+
+                        <!-- Pertanyaan 2 -->
+                        <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50/40">
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                2. Pada Kasus 2, bentuk ketidaksetaraan gender apa yang dialami kandidat perempuan? Jelaskan kaitannya dengan istilah <em>subordinasi</em> (penomorduaan peran).
+                            </label>
+                            <textarea id="q2-2" rows="3" oninput="calculateTotalScore()" placeholder="Tuliskan hasil analisismu di sini..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white"></textarea>
+                            <div class="no-print mt-2 flex items-center justify-between">
+                                <button onclick="toggleRubric('rubric-2-2')" class="text-xs font-semibold text-purple-600 hover:underline">
+                                    💡 Lihat Kunci & Panduan Analisis
+                                </button>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                                    <span>Penilaian Mandiri (0-10):</span>
+                                    <select id="self-2-2" onchange="calculateTotalScore()" class="border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-purple-700 bg-white">
+                                        <option value="0">0</option>
+                                        <option value="5">5 (Cukup)</option>
+                                        <option value="8">8 (Baik)</option>
+                                        <option value="10">10 (Tepat)</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div id="rubric-2-2" class="hidden mt-3 p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-950">
+                                <strong>Kunci Jawaban (Skor 10):</strong> Bentuk ketidaksetaraan tersebut adalah <strong>Subordinasi</strong> (penomorduaan), yaitu anggapan bahwa perempuan tidak layak menjadi pemimpin utama meskipun memiliki kompetensi dan visi misi yang baik, serta hanya ditempatkan sebagai pendukung (sekretaris/bendahara).
+                            </div>
+                        </div>
+
+                        <!-- Pertanyaan 3 -->
+                        <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50/40">
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                3. Apa dampak negatif jika pandangan pada Kasus 1 dan 2 terus dibiarkan? Tuliskan masing-masing satu solusi nyata di keluarga dan di sekolah!
+                            </label>
+                            <div class="space-y-2.5">
+                                <input type="text" id="q2-3-dampak" oninput="calculateTotalScore()" placeholder="• Dampak negatif: ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white">
+                                <input type="text" id="q2-3-keluarga" oninput="calculateTotalScore()" placeholder="• Solusi nyata di keluarga: ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white">
+                                <input type="text" id="q2-3-sekolah" oninput="calculateTotalScore()" placeholder="• Solusi nyata di sekolah: ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white">
+                            </div>
+                            <div class="no-print mt-2 flex items-center justify-between">
+                                <button onclick="toggleRubric('rubric-2-3')" class="text-xs font-semibold text-purple-600 hover:underline">
+                                    💡 Lihat Kunci & Panduan Analisis
+                                </button>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                                    <span>Penilaian Mandiri (0-10):</span>
+                                    <select id="self-2-3" onchange="calculateTotalScore()" class="border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-purple-700 bg-white">
+                                        <option value="0">0</option>
+                                        <option value="5">5 (Cukup)</option>
+                                        <option value="8">8 (Baik)</option>
+                                        <option value="10">10 (Tepat)</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div id="rubric-2-3" class="hidden mt-3 p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-950 space-y-1">
+                                <p><strong>Dampak (4 poin):</strong> Potensi dan prestasi individu terhambat, kesempatan berkembang tidak adil, dan ketimpangan sosial terus berlanjut.</p>
+                                <p><strong>Solusi Keluarga (3 poin):</strong> Memberikan kesempatan pendidikan yang sama bagi anak laki-laki dan perempuan serta membagi tugas rumah tangga secara adil.</p>
+                                <p><strong>Solusi Sekolah (3 poin):</strong> Memberikan kesempatan mencalonkan diri dan memilih pemimpin OSIS berdasarkan kompetensi dan visi misi, bukan jenis kelamin.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pertanyaan 4 -->
+                        <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50/40">
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                4. Tinjau kedua kasus dengan indikator APKM. Indikator mana (<em>Akses, Partisipasi, Kontrol, Manfaat</em>) yang tidak terpenuhi? Jelaskan alasanmu!
+                            </label>
+                            <textarea id="q2-4" rows="3" oninput="calculateTotalScore()" placeholder="Tuliskan indikator APKM yang tidak terpenuhi dan alasannya..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 outline-none bg-white"></textarea>
+                            <div class="no-print mt-2 flex items-center justify-between">
+                                <button onclick="toggleRubric('rubric-2-4')" class="text-xs font-semibold text-purple-600 hover:underline">
+                                    💡 Lihat Kunci & Panduan Analisis
+                                </button>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                                    <span>Penilaian Mandiri (0-10):</span>
+                                    <select id="self-2-4" onchange="calculateTotalScore()" class="border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-purple-700 bg-white">
+                                        <option value="0">0</option>
+                                        <option value="5">5 (Cukup)</option>
+                                        <option value="8">8 (Baik)</option>
+                                        <option value="10">10 (Tepat)</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div id="rubric-2-4" class="hidden mt-3 p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-950">
+                                <strong>Kunci Jawaban (Skor 10):</strong> <strong>Akses</strong> (Sinta kehilangan peluang/akses melanjutkan sekolah ke SMA), <strong>Partisipasi & Kontrol</strong> (kandidat perempuan terhambat berpartisipasi aktif dan mengambil keputusan sebagai ketua OSIS), serta <strong>Manfaat</strong> (hasil pendidikan dan organisasi tidak dinikmati secara adil).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AKTIVITAS 3 & KESIMPULAN (SKOR MAKS 30) -->
+                <div class="print-card bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-lg bg-teal-100 text-teal-800 text-xs font-bold">Aktivitas 3 & Kesimpulan • Skor Maksimal: 30</span>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mt-2">Refleksi Praktik Kesetaraan & Kesimpulan</h3>
+                            <p class="text-xs sm:text-sm text-slate-600">Wujudkan pemahamanmu menjadi aksi nyata mulai hari ini di rumah maupun di sekolah!</p>
+                        </div>
+                        <div class="bg-teal-50 border border-teal-200 px-4 py-2 rounded-xl text-center shrink-0">
+                            <span class="block text-[11px] font-semibold text-teal-600 uppercase">Skor Aktivitas 3</span>
+                            <span id="score-act3" class="font-display text-xl font-extrabold text-teal-700">0</span><span class="text-xs text-teal-500">/30</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                Tuliskan 3 tindakan nyata yang dapat kamu lakukan mulai hari ini di rumah atau sekolah untuk mendukung kesetaraan gender (5 poin per tindakan):
+                            </label>
+                            <div class="space-y-2.5">
+                                <input type="text" id="act3-1" oninput="calculateTotalScore()" placeholder="Tindakan 1: Contoh - Membagi jadwal piket kelas secara merata tanpa membedakan jenis kelamin" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                                <input type="text" id="act3-2" oninput="calculateTotalScore()" placeholder="Tindakan 2: Contoh - Ikut membantu pekerjaan rumah tangga (menyapu/mencuci piring) baik laki-laki maupun perempuan" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                                <input type="text" id="act3-3" oninput="calculateTotalScore()" placeholder="Tindakan 3: Contoh - Tidak mengejek teman yang memiliki hobi berbeda dari anggapan umum" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                Refleksi Diri: Hal yang paling mengubah cara pandangku hari ini adalah...
+                            </label>
+                            <textarea id="act3-refleksi" rows="2" oninput="calculateTotalScore()" placeholder="Tuliskan refleksi singkatmu..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <label class="block font-display font-bold text-slate-800 text-sm mb-2">
+                                Kesimpulan Kelompok (Skor maksimal 15): Kesetaraan gender adalah...
+                            </label>
+                            <textarea id="act3-kesimpulan" rows="3" oninput="calculateTotalScore()" placeholder="Rumuskan kesimpulan kelompokmu mengenai pengertian dan pentingnya kesetaraan gender..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+                            <div class="no-print mt-2">
+                                <button onclick="toggleRubric('rubric-kesimpulan')" class="text-xs font-semibold text-teal-600 hover:underline">
+                                    💡 Lihat Contoh Kesimpulan (Lampiran 2 RPM)
+                                </button>
+                                <div id="rubric-kesimpulan" class="hidden mt-2 p-3.5 rounded-xl bg-teal-50 border border-teal-200 text-xs text-teal-950">
+                                    <strong>Kunci Kesimpulan:</strong> Kesetaraan gender adalah kondisi ketika laki-laki dan perempuan memiliki hak, kewajiban, kesempatan, akses, dan penghargaan yang sama dan adil dalam berbagai bidang kehidupan (keluarga, pendidikan, pekerjaan, masyarakat) tanpa diskriminasi berdasarkan jenis kelamin.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REKAPITULASI NILAI AKHIR & PREDIKAT -->
+                <div class="print-card bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold uppercase tracking-wider text-teal-300">Rekapitulasi Hasil Belajar</span>
+                            <h3 class="font-display text-2xl font-bold">Total Skor & Predikat Capaian</h3>
+                            <p class="text-xs sm:text-sm text-slate-300">Berdasarkan Pedoman Penskoran LKPD IPS Kelas VIII (Lampiran 2 RPM).</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm border border-white/15 px-6 py-4 rounded-2xl w-full md:w-auto justify-between md:justify-start">
+                            <div>
+                                <div class="text-xs text-slate-300 font-medium">Nilai Akhir</div>
+                                <div class="font-display text-4xl font-extrabold text-amber-400"><span id="total-score-display">0</span><span class="text-lg text-slate-400 font-normal">/100</span></div>
+                            </div>
+                            <div class="h-10 w-px bg-white/20"></div>
+                            <div>
+                                <div class="text-xs text-slate-300 font-medium">Predikat</div>
+                                <div id="predikat-display" class="font-display text-lg font-bold text-teal-300">Perlu Bimbingan</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rincian Skor -->
+                    <div class="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-white/15 text-center sm:text-left">
+                        <div class="bg-white/5 p-3 rounded-xl">
+                            <div class="text-xs text-slate-400">Aktivitas 1 (Seks vs Gender)</div>
+                            <div class="font-display font-bold text-base mt-0.5"><span id="recap-1">0</span> / 30</div>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded-xl">
+                            <div class="text-xs text-slate-400">Aktivitas 2 (Studi Kasus)</div>
+                            <div class="font-display font-bold text-base mt-0.5"><span id="recap-2">0</span> / 40</div>
+                        </div>
+                        <div class="bg-white/5 p-3 rounded-xl">
+                            <div class="text-xs text-slate-400">Aktivitas 3 & Kesimpulan</div>
+                            <div class="font-display font-bold text-base mt-0.5"><span id="recap-3">0</span> / 30</div>
+                        </div>
+                    </div>
+
+                    <div class="no-print mt-6 flex flex-wrap items-center justify-between gap-3">
+                        <p class="text-xs text-slate-400">Tip: Klik tombol di samping untuk menyimpan hasil LKPD sebagai file PDF atau mencetaknya.</p>
+                        <button onclick="window.print()" class="bg-teal-500 hover:bg-teal-400 text-slate-950 font-display font-bold text-sm px-6 py-3 rounded-xl shadow-md transition">
+                            🖨️ Cetak / Simpan PDF Hasil LKPD
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="no-print border-t border-slate-200 bg-white mt-12 py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+            <p><strong>Media Pembelajaran Interaktif IPS Kelas VIII</strong> • Kurikulum Merdeka (Fase D)</p>
+            <p>Disusun berdasarkan RPM oleh <strong>Sri Astuti, S.Pd</strong> — SMP Negeri 13 Semarang</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // =========================================================
+        // 1. DATA MATERI & SOAL (SESUAI DOKUMEN RPM)
+        // =========================================================
+        const icebreakerPrompts = [
+            {
+                id: 1,
+                statement: "“Tugas memasak dan membersihkan rumah hanya kewajiban anak perempuan.”",
+                feedback: "Keterampilan mengurus rumah adalah keterampilan hidup (life skill) dasar bagi manusia. Baik anak laki-laki maupun perempuan perlu belajar mandiri dan berbagi tugas rumah secara adil."
+            },
+            {
+                id: 2,
+                statement: "“Anak laki-laki harus selalu kuat dan tidak boleh menangis saat sedih.”",
+                feedback: "Menangis adalah ekspresi emosi manusia yang alami (biologis/psikologis). Melarang laki-laki mengekspresikan kesedihan adalah stereotip gender yang dapat berdampak buruk pada kesehatan mental."
+            },
+            {
+                id: 3,
+                statement: "“Laki-laki dan perempuan memiliki kesempatan yang sama untuk menjadi Ketua OSIS.”",
+                feedback: "Tepat! Kepemimpinan ditentukan oleh kemampuan, tanggung jawab, integritas, dan visi misi seseorang—bukan oleh jenis kelaminnya."
+            }
+        ];
+
+        const apkmData = {
+            A: {
+                title: "A — Akses (Peluang yang Setara)",
+                color: "indigo",
+                desc: "Kesempatan yang sama bagi laki-laki dan perempuan untuk memperoleh sumber daya, pendidikan, informasi, dan fasilitas tanpa hambatan diskriminatif.",
+                familyExample: "Orang tua memberikan kesempatan sekolah setinggi-tingginya kepada anak laki-laki maupun anak perempuan tanpa membeda-bedakan.",
+                schoolExample: "Semua siswa laki-laki dan perempuan memiliki akses yang sama untuk menggunakan laboratorium komputer, perpustakaan, dan ekstrakurikuler."
+            },
+            P: {
+                title: "P — Partisipasi (Keikutsertaan Aktif)",
+                color: "teal",
+                desc: "Keterlibatan aktif dan seimbang antara laki-laki dan perempuan dalam berbagai kegiatan, organisasi, maupun musyawarah.",
+                familyExample: "Anak laki-laki dan perempuan sama-sama dilibatkan dalam diskusi rencana liburan keluarga atau pembagian jadwal kerja bakti rumah.",
+                schoolExample: "Siswa perempuan dan laki-laki aktif berpartisipasi dalam kepengurusan OSIS, lomba cerdas cermat, maupun tim olahraga sekolah."
+            },
+            K: {
+                title: "K — Kontrol (Pengambilan Keputusan)",
+                color: "purple",
+                desc: "Kewenangan dan kemampuan yang setara untuk mengambil keputusan penting serta mengelola sumber daya secara adil.",
+                familyExample: "Ayah dan ibu berdiskusi bersama dalam mengambil keputusan keuangan dan pendidikan anak secara setara.",
+                schoolExample: "Ketua OSIS maupun ketua kelompok diskusi memberi ruang pendapat yang setara saat mengambil keputusan kelas."
+            },
+            M: {
+                title: "M — Manfaat (Hasil yang Dirasakan Adil)",
+                color: "amber",
+                desc: "Hasil dari pembangunan, kebijakan, atau kegiatan dapat dinikmati secara adil oleh laki-laki maupun perempuan.",
+                familyExample: "Seluruh anggota keluarga merasakan kenyamanan rumah yang bersih dan harmonis karena tugas rumah dikerjakan bersama.",
+                schoolExample: "Program sekolah ramah anak memberikan rasa aman, nyaman, dan prestasi yang merata bagi siswa laki-laki maupun perempuan."
+            }
+        };
+
+        const act1Questions = [
+            {
+                no: 1,
+                text: "Perempuan memiliki rahim dan dapat melahirkan anak.",
+                answer: "Seks",
+                reason: "Kodrat biologis bawaan lahir yang tidak dapat dipertukarkan."
+            },
+            {
+                no: 2,
+                text: "Laki-laki dianggap harus kuat dan tidak boleh menangis.",
+                answer: "Gender",
+                reason: "Anggapan atau stereotip sosial masyarakat, bukan ciri biologis."
+            },
+            {
+                no: 3,
+                text: "Pekerjaan memasak dan membersihkan rumah hanya tugas perempuan.",
+                answer: "Gender",
+                reason: "Pembagian peran sosial yang dapat dipelajari dan dipertukarkan."
+            },
+            {
+                no: 4,
+                text: "Laki-laki memproduksi sel sperma dan memiliki jakun.",
+                answer: "Seks",
+                reason: "Ciri biologis alami laki-laki sejak lahir."
+            },
+            {
+                no: 5,
+                text: "Laki-laki lebih cocok menjadi pemimpin dibandingkan perempuan.",
+                answer: "Gender",
+                reason: "Pelabelan peran sosial (subordinasi), bukan kodrat biologis."
+            },
+            {
+                no: 6,
+                text: "Perempuan mengalami menstruasi dan menyusui bayi.",
+                answer: "Seks",
+                reason: "Fungsi reproduksi biologis khusus pada perempuan."
+            }
+        ];
+
+        // State penyimpanan jawaban siswa
+        let userAct1Answers = {};
+        let act1Score = 0;
+
+        // =========================================================
+        // 2. NAVIGASI TAB & INTERAKSI BERANDA
+        // =========================================================
+        function switchTab(tabName) {
+            // Sembunyikan semua tab
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Reset tombol nav
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+
+            // Aktifkan tab terpilih
+            document.getElementById('tab-' + tabName).classList.add('active');
+            const activeBtn = document.getElementById('nav-' + tabName);
+            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+            activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleGoal(card) {
+            const badge = card.querySelector('.goal-badge');
+            const isDone = card.classList.contains('border-emerald-500');
+            if (!isDone) {
+                card.classList.remove('border-slate-200', 'bg-slate-50/50');
+                card.classList.add('border-emerald-500', 'bg-emerald-50/40');
+                badge.textContent = "✓ Dipahami";
+                badge.classList.remove('bg-slate-200', 'text-slate-600');
+                badge.classList.add('bg-emerald-100', 'text-emerald-800');
+            } else {
+                card.classList.add('border-slate-200', 'bg-slate-50/50');
+                card.classList.remove('border-emerald-500', 'bg-emerald-50/40');
+                badge.textContent = "Belum Dicapai";
+                badge.classList.add('bg-slate-200', 'text-slate-600');
+                badge.classList.remove('bg-emerald-100', 'text-emerald-800');
+            }
+        }
+
+        // =========================================================
+        // 3. RENDER PEMANTIK (ICE BREAKER)
+        // =========================================================
+        function renderIcebreakers() {
+            const container = document.getElementById('icebreaker-list');
+            container.innerHTML = icebreakerPrompts.map(item => `
+                <div class="p-5 sm:p-6 rounded-2xl border border-slate-200 bg-slate-50/50 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full bg-amber-400 text-slate-900 font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${item.id}</span>
+                        <p class="font-display font-bold text-slate-900 text-base sm:text-lg">${item.statement}</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="voteIcebreaker(${item.id}, 'setuju')" id="ib-btn-setuju-${item.id}" class="px-4 py-2 rounded-xl border-2 border-slate-200 bg-white text-xs sm:text-sm font-bold text-slate-700 hover:border-indigo-500 transition">
+                            🙋‍♂️ Berdiri (Setuju)
+                        </button>
+                        <button onclick="voteIcebreaker(${item.id}, 'tidak')" id="ib-btn-tidak-${item.id}" class="px-4 py-2 rounded-xl border-2 border-slate-200 bg-white text-xs sm:text-sm font-bold text-slate-700 hover:border-teal-500 transition">
+                            🪑 Duduk (Tidak Setuju)
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="ib-reason-${item.id}" placeholder="Tuliskan alasan singkatmu di sini..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <button onclick="submitIcebreaker(${item.id})" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-semibold transition shrink-0">
+                            Kirim & Lihat Refleksi
+                        </button>
+                    </div>
+
+                    <div id="ib-feedback-${item.id}" class="hidden p-4 rounded-xl bg-indigo-50 border border-indigo-200 text-xs sm:text-sm text-indigo-950">
+                        <div class="font-bold text-indigo-700 mb-1">💬 Umpan Balik Reflektif:</div>
+                        <p>${item.feedback}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function voteIcebreaker(id, choice) {
+            const btnSetuju = document.getElementById(`ib-btn-setuju-${id}`);
+            const btnTidak = document.getElementById(`ib-btn-tidak-${id}`);
+            
+            btnSetuju.className = "px-4 py-2 rounded-xl border-2 border-slate-200 bg-white text-xs sm:text-sm font-bold text-slate-700 transition";
+            btnTidak.className = "px-4 py-2 rounded-xl border-2 border-slate-200 bg-white text-xs sm:text-sm font-bold text-slate-700 transition";
+
+            if (choice === 'setuju') {
+                btnSetuju.className = "px-4 py-2 rounded-xl border-2 border-indigo-600 bg-indigo-600 text-white text-xs sm:text-sm font-bold shadow-sm transition";
+            } else {
+                btnTidak.className = "px-4 py-2 rounded-xl border-2 border-teal-600 bg-teal-600 text-white text-xs sm:text-sm font-bold shadow-sm transition";
+            }
+        }
+
+        function submitIcebreaker(id) {
+            const fb = document.getElementById(`ib-feedback-${id}`);
+            fb.classList.remove('hidden');
+        }
+
+        // =========================================================
+        // 4. INTERAKSI MATERI APKM
+        // =========================================================
+        function selectAPKM(key) {
+            const data = apkmData[key];
+            const colorMap = {
+                A: 'border-indigo-600 bg-indigo-600 text-white',
+                P: 'border-teal-600 bg-teal-600 text-white',
+                K: 'border-purple-600 bg-purple-600 text-white',
+                M: 'border-amber-500 bg-amber-500 text-white'
+            };
+
+            // Reset semua tombol APKM
+            ['A', 'P', 'K', 'M'].forEach(k => {
+                const btn = document.getElementById(`btn-apkm-${k}`);
+                btn.className = "apkm-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-400 text-slate-800 text-left transition-all";
+                btn.querySelector('div:first-child').className = `font-display text-2xl font-extrabold text-${apkmData[k].color}-600`;
+            });
+
+            // Aktifkan tombol yang diklik
+            const activeBtn = document.getElementById(`btn-apkm-${key}`);
+            activeBtn.className = `apkm-btn active p-4 rounded-2xl border-2 ${colorMap[key]} text-left transition-all shadow-md`;
+            activeBtn.querySelector('div:first-child').className = "font-display text-2xl font-extrabold text-white";
+
+            // Render konten detail
+            const detailBox = document.getElementById('apkm-detail');
+            detailBox.innerHTML = `
+                <h3 class="font-display text-lg sm:text-xl font-bold text-slate-900">${data.title}</h3>
+                <p class="text-sm text-slate-700 mt-1.5 leading-relaxed">${data.desc}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
+                        <span class="text-xs font-bold text-indigo-600 block mb-1">🏠 Contoh di Keluarga:</span>
+                        <p class="text-xs sm:text-sm text-slate-600">${data.familyExample}</p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
+                        <span class="text-xs font-bold text-teal-600 block mb-1">🏫 Contoh di Sekolah:</span>
+                        <p class="text-xs sm:text-sm text-slate-600">${data.schoolExample}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // =========================================================
+        // 5. LKPD AKTIVITAS 1 (SEKS VS GENDER)
+        // =========================================================
+        function renderActivity1() {
+            const container = document.getElementById('act1-container');
+            container.innerHTML = act1Questions.map(q => `
+                <div id="act1-row-${q.no}" class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 transition-all">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${q.no}</span>
+                            <span class="text-sm font-medium text-slate-800">${q.text}</span>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                            <button onclick="chooseAct1(${q.no}, 'Seks')" id="btn-act1-${q.no}-Seks" class="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:border-indigo-500 transition">
+                                Seks (Biologis)
+                            </button>
+                            <button onclick="chooseAct1(${q.no}, 'Gender')" id="btn-act1-${q.no}-Gender" class="px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:border-teal-500 transition">
+                                Gender (Sosial)
+                            </button>
+                        </div>
+                    </div>
+                    <div id="act1-fb-${q.no}" class="hidden mt-2.5 pt-2.5 border-t border-slate-200/80 text-xs"></div>
+                </div>
+            `).join('');
+        }
+
+        function chooseAct1(no, choice) {
+            userAct1Answers[no] = choice;
+            const btnSeks = document.getElementById(`btn-act1-${no}-Seks`);
+            const btnGender = document.getElementById(`btn-act1-${no}-Gender`);
+
+            btnSeks.className = "px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 transition";
+            btnGender.className = "px-3.5 py-1.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-700 transition";
+
+            if (choice === 'Seks') {
+                btnSeks.className = "px-3.5 py-1.5 rounded-xl border-2 border-indigo-600 bg-indigo-600 text-white text-xs font-bold shadow-sm transition";
+            } else {
+                btnGender.className = "px-3.5 py-1.5 rounded-xl border-2 border-teal-600 bg-teal-600 text-white text-xs font-bold shadow-sm transition";
+            }
+        }
+
+        function checkActivity1() {
+            let score = 0;
+            act1Questions.forEach(q => {
+                const userChoice = userAct1Answers[q.no];
+                const row = document.getElementById(`act1-row-${q.no}`);
+                const fb = document.getElementById(`act1-fb-${q.no}`);
+                fb.classList.remove('hidden');
+
+                if (userChoice === q.answer) {
+                    score += 5; // 6 soal x 5 poin = 30
+                    row.className = "p-4 rounded-2xl border-2 border-emerald-400 bg-emerald-50/40 transition-all";
+                    fb.innerHTML = `<span class="font-bold text-emerald-700">✓ Benar (+5 poin):</span> <span class="text-slate-700">${q.reason}</span>`;
+                } else if (!userChoice) {
+                    row.className = "p-4 rounded-2xl border-2 border-amber-300 bg-amber-50/40 transition-all";
+                    fb.innerHTML = `<span class="font-bold text-amber-700">⚠️ Belum dipilih.</span> <span class="text-slate-700">Jawaban tepat: <strong>${q.answer}</strong> (${q.reason})</span>`;
+                } else {
+                    row.className = "p-4 rounded-2xl border-2 border-rose-300 bg-rose-50/40 transition-all";
+                    fb.innerHTML = `<span class="font-bold text-rose-700">✕ Kurang tepat.</span> <span class="text-slate-700">Seharusnya <strong>${q.answer}</strong> — ${q.reason}</span>`;
+                }
+            });
+
+            act1Score = score;
+            calculateTotalScore();
+        }
+
+        function resetActivity1() {
+            userAct1Answers = {};
+            act1Score = 0;
+            renderActivity1();
+            calculateTotalScore();
+        }
+
+        // =========================================================
+        // 6. RUBRIK & PERHITUNGAN SKOR TOTAL (0 - 100)
+        // =========================================================
+        function toggleRubric(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        function calculateTotalScore() {
+            // Skor Aktivitas 1 (Maks 30)
+            document.getElementById('score-act1').textContent = act1Score;
+            document.getElementById('recap-1').textContent = act1Score;
+
+            // Skor Aktivitas 2 (Maks 40: 4 pertanyaan x 10 poin dari self-assessment)
+            const s2_1 = parseInt(document.getElementById('self-2-1').value || 0);
+            const s2_2 = parseInt(document.getElementById('self-2-2').value || 0);
+            const s2_3 = parseInt(document.getElementById('self-2-3').value || 0);
+            const s2_4 = parseInt(document.getElementById('self-2-4').value || 0);
+            const act2Score = s2_1 + s2_2 + s2_3 + s2_4;
+            document.getElementById('score-act2').textContent = act2Score;
+            document.getElementById('recap-2').textContent = act2Score;
+
+            // Skor Aktivitas 3 & Kesimpulan (Maks 30: 3 tindakan x 5 poin = 15 + kesimpulan = 15)
+            let act3Score = 0;
+            if (document.getElementById('act3-1').value.trim().length >= 5) act3Score += 5;
+            if (document.getElementById('act3-2').value.trim().length >= 5) act3Score += 5;
+            if (document.getElementById('act3-3').value.trim().length >= 5) act3Score += 5;
+            if (document.getElementById('act3-kesimpulan').value.trim().length >= 15) act3Score += 15;
+
+            document.getElementById('score-act3').textContent = act3Score;
+            document.getElementById('recap-3').textContent = act3Score;
+
+            // Total Nilai Akhir
+            const total = act1Score + act2Score + act3Score;
+            document.getElementById('header-score').textContent = total;
+            document.getElementById('total-score-display').textContent = total;
+
+            // Penentuan Predikat (Sesuai Lampiran 2 RPM)
+            const predikatEl = document.getElementById('predikat-display');
+            if (total >= 86) {
+                predikatEl.textContent = "Sangat Baik";
+                predikatEl.className = "font-display text-lg font-bold text-emerald-400";
+            } else if (total >= 71) {
+                predikatEl.textContent = "Baik";
+                predikatEl.className = "font-display text-lg font-bold text-teal-300";
+            } else if (total >= 56) {
+                predikatEl.textContent = "Cukup";
+                predikatEl.className = "font-display text-lg font-bold text-amber-300";
+            } else {
+                predikatEl.textContent = "Perlu Bimbingan";
+                predikatEl.className = "font-display text-lg font-bold text-rose-300";
+            }
+        }
+
+        // Inisialisasi saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            renderIcebreakers();
+            selectAPKM('A');
+            renderActivity1();
+        });
+    </script>
+</body>
+</html>
